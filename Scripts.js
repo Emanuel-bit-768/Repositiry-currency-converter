@@ -3,16 +3,19 @@ let currencySelect = document.querySelector(".currency-select")
 let convertSelect = document.querySelector(".convert-select")
 let currencyValueToConvert = document.querySelector(".currency-value-to-convert")
 
-function convertValues() {
+async function convertValues() {
     const inputCurrencyValue = document.querySelector(".input-currency").value
     const currencyValueToConvert = document.querySelector(".currency-value-to-convert") // Valor de CIMA
     const currencyValueConverted = document.querySelector(".currency-value")           // Valor de BAIXO
 
-    const dolarToday = 5.39
-    const euroToday = 6.28
-    const libraToday = 7.23
+    const data = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL,BTC-BRL").then(response => response.json())
+
+    
     const realToday = 1.0
-    const bitcoinToday = 585240.00
+    const dolarToday = data.USDBRL.high
+    const euroToday = data.EURBRL.high
+    const libraToday = data.GBPBRL.high
+    const bitcoinToday = data.BTCBRL.high
 
     
     if (convertSelect.value == "real") {
@@ -85,7 +88,7 @@ function convertValues() {
 }
 
 
-function changeCurrency() {
+    function changeCurrency() {
     let currencyDolar = document.getElementById("currency-dolar")
     let currencyImage = document.querySelector(".currency-ban")
 
